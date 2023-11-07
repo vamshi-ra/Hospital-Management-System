@@ -1,0 +1,73 @@
+{% extends 'hospitalmanagement/patient_base.html' %}
+{% block content %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+{% if status == 'Cancelled' %}
+  <script>
+    var a = '{{message}}'
+    alert(a)
+    window.location.href='/patient-appointment';
+  </script>
+{% elif  status == 'error' %}
+ <h2> {{message}} </h2>
+{% endif %}
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h6 class="panel-title">Your Appointments</h6>
+    </div>
+    <table class="table table-hover" id="dev-table">
+      <thead>
+        <tr>
+          <th>Doctor Name</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Time slot</th>
+          <th>Status</th>
+          <th colspan="2" style="text-align: center;">Action</th>
+        </tr>
+      </thead>
+      {% for a in appointments %}
+      <tr>
+        <td> {{a.doctor.get_name}}</td>
+        {% if a.prescription %}
+            <td>{{a.prescription.medications}}</td>
+        {% else %}
+            <td>{{a.symptoms}}</td>
+        {% endif %}
+        <td>{{a.date}}</td>
+        <td>{{a.time}}</td>
+        
+        {% if a.status == 'Closed' %}
+        <td> <span class="label label-primary">Closed</span></td>
+
+        {% else %}
+        <td> <span class="label label-success">Booked</span></td>
+        <td> <span class="label label-danger"> <a style="color: white;" href="{% url 'cancel_appointment' a.id %}">Cancel</a> </span> </td>
+        <td> <span class="label label-danger"> <a style="color: white;" href="{% url 'reschedule_appointment' a.id %}">Reschedule</a> </span> </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock content %}

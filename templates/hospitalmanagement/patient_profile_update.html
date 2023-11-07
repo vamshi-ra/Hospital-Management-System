@@ -1,0 +1,49 @@
+{% extends 'hospitalmanagement/patient_base.html' %}
+{% block content %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+{% if status == 'Cancelled' %}
+  <script>
+    var a = '{{message}}'
+    alert(a)
+    window.location.href='/patient-appointment';
+  </script>
+{% elif  status == 'error' %}
+ <h2> {{message}} </h2>
+{% endif %}
+<div class="container">
+    <form action="{% url 'patient-profile-update' %}" method="post">
+        {% csrf_token %}
+
+        <input type="text" name="first_name" placeholder="First name" value="{{patient.user.first_name}}">
+        <input type="text" name="last_name" placeholder="Last name" value="{{patient.user.last_name}}">
+        <input type="email" name="email" placeholder="Email" value="{{patient.user.email}}">
+        <input type="text" name="address" placeholder="Address" value="{{patient.address}}">
+        <input type="text" name="mobile" placeholder="Mobile" value="{{patient.mobile}}">
+        <input type="text" name="gender" placeholder="Gender" value="{{patient.gender}}">
+
+        <input type="password" name="password" placeholder="Password">
+
+        <input type="submit" value="Submit">
+    </form>
+</div>
+
+{% endblock content %}

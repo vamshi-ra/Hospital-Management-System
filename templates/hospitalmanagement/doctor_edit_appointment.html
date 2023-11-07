@@ -1,0 +1,37 @@
+{% extends 'hospitalmanagement/doctor_base.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+  <style media="screen">
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+<form method="post">
+    {% csrf_token %}
+    Patient Name
+    <input type="text" id="patientName" readonly value="{{appointment.patient.get_name}}"/>
+    Symptoms
+    <input type="text" id="symptoms" readonly value="{{appointment.symptoms}}"/>
+    Mobile
+    <input type="text" id="mobile" readonly value="{{appointment.patient.mobile}}"/>
+    Feedback/Medications
+    <input type="textarea" id="description" name="description"/>
+
+    <button type="submit" class="btnSubmit">Book</button>
+</form>
+{% endblock content %}

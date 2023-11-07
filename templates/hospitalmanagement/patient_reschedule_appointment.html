@@ -1,0 +1,111 @@
+!{% extends 'hospitalmanagement/patient_base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+<head>
+  <style media="screen">
+    a:link {
+        text-decoration: none;
+    }
+
+    .note {
+      text-align: center;
+      height: 80px;
+      background: -webkit-linear-gradient(left, #0072ff, #8811c5);
+      color: #fff;
+      font-weight: bold;
+      line-height: 80px;
+    }
+    
+    .form-content {
+        padding: 5%;
+        border: 1px solid #ced4da;
+        margin-bottom: 2%;
+    }
+
+    .form-control {
+      border-radius: 1.5rem;
+    }
+    
+    .btnSubmit {
+      border: none;
+      border-radius: 1.5rem;
+      padding: 1%;
+      width: 20%;
+      cursor: pointer;
+      background: #0062cc;
+      color: #fff;
+    }
+
+    .menu {
+        top: 50px;
+    }
+  </style>
+  
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+{% if status %}
+  <script>
+    var a = '{{message}}'
+    alert(a)
+    window.location.href='/patient-appointment';
+  </script>
+{% endif %}
+<br><br>
+
+<form method="post">
+  {% csrf_token %}
+  <div class="container register-form">
+    <div class="form">
+      <div class="note">
+        <p>Book Appointment Details</p>
+      </div>
+      <div class="form-content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+                Symptoms
+                <input type="text" id="symptoms" name="symptoms" value="{{appointment.symptoms}}" readonly/>
+            </div>
+            <div class="form-group">
+                Department
+                <input type="text" name="specialization" id="specialization" value="{{appointment.doctor.specialization}}" readonly/>
+              </div>
+              <div class="form-group">
+                <label for="appointment-date">Select Date:</label>
+                <input type="date" id="date" name="date" value="{{date}}" required>
+            </div>
+            <div class="form-group">
+                <label for="time-slot">Select Time Slot:</label>
+                <select id="time" name="time" value="{{appointment.time}}" required>
+                    <option value="9:00 AM">09:00 AM</option>
+                    <option value="9:15 AM">09:15 AM</option>
+                    <option value="9:45 AM">09:45 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="10:15 AM">10:15 AM</option>
+                    <option value="10:30 AM">10:30 AM</option>
+                    <option value="10:45 AM">10:45 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="11:15 AM">11:15 AM</option>
+                    <option value="11:30 AM">11:30 AM</option>
+                    <option value="11:45 AM">11:45 AM</option>
+                    <option value="12:00 AM">12:00 AM</option>
+                </select>
+            </div>
+            
+
+
+
+          </div>
+
+        </div>
+        <button type="submit" class="btnSubmit">Book</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock content %}

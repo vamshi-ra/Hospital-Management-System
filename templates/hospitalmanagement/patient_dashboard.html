@@ -1,0 +1,42 @@
+{% extends 'hospitalmanagement/patient_base.html' %}
+{% load static %}
+{% block content %}
+{% if status %}
+    {% include 'hospitalmanagement/patient_dashboard_cards.html'%}
+    <br><br><br><br>
+
+    {% else %}
+    <style>
+        a:link {
+            text-decoration: none;
+        }
+        .menu{
+            top: 54px;
+        }
+        #link{
+            background: blue;
+            color: white;
+            border: 10 20 10 20;
+            border-radius: 6px;
+            width: 600px;
+            height: auto;
+            position: relative;
+            margin-left: 479px;
+            top: 77px;
+            font-size: xx-large;
+        }
+        #no-data{
+            display: inline-block;
+            position: relative;
+            top: 36px;
+            left: 21px;
+        }
+
+    </style>
+    <div id="no-data">
+        <h1> No Active appointments available! </h1>
+        <div class="text-center" id="link" ><a href="/appointment/book">Book an Appointment</a></div>
+    </div>
+    {% endif %}
+{% endblock content %}
+    
